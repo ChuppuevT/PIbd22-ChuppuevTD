@@ -12,7 +12,7 @@ namespace WindowsFormsLainers
 {
     public partial class FormShip : Form
     {
-        private Lainer ship;
+        private ITransport ship;
 
         public FormShip()
         {
@@ -27,10 +27,18 @@ namespace WindowsFormsLainers
             pictureBoxShips.Image = bmp;
         }
 
-        private void buttonCreate_Click(object sender, EventArgs e)
+        private void buttonCreateShip_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            ship = new Lainer(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Red, Color.Gray, true, true, true, true);
+            ship = new Ship(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue);
+            ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxShips.Width, pictureBoxShips.Height);
+            Draw();
+        }
+
+        private void buttonCreateLainer_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            ship = new Lainer(rnd.Next(100, 300), rnd.Next(1000, 2000), Color.Blue, Color.Yellow, true, true, true, true);
             ship.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxShips.Width, pictureBoxShips.Height);
             Draw();
         }
@@ -55,6 +63,7 @@ namespace WindowsFormsLainers
             }
             Draw();
         }
+
 
     }
 }
