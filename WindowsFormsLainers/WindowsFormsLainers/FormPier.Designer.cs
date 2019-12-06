@@ -32,10 +32,12 @@
             this.buttonSetShip = new System.Windows.Forms.Button();
             this.buttonSetLainer = new System.Windows.Forms.Button();
             this.groupBoxShip = new System.Windows.Forms.GroupBox();
+            this.buttonTakeShip = new System.Windows.Forms.Button();
             this.pictureBoxTakeShip = new System.Windows.Forms.PictureBox();
             this.maskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label = new System.Windows.Forms.Label();
-            this.buttonTakeShip = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.listBoxLevels = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPier)).BeginInit();
             this.groupBoxShip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).BeginInit();
@@ -43,15 +45,15 @@
             // 
             // pictureBoxPier
             // 
-            this.pictureBoxPier.Location = new System.Drawing.Point(1, 1);
+            this.pictureBoxPier.Location = new System.Drawing.Point(1, 5);
             this.pictureBoxPier.Name = "pictureBoxPier";
-            this.pictureBoxPier.Size = new System.Drawing.Size(744, 460);
+            this.pictureBoxPier.Size = new System.Drawing.Size(744, 454);
             this.pictureBoxPier.TabIndex = 0;
             this.pictureBoxPier.TabStop = false;
             // 
             // buttonSetShip
             // 
-            this.buttonSetShip.Location = new System.Drawing.Point(760, 30);
+            this.buttonSetShip.Location = new System.Drawing.Point(757, 129);
             this.buttonSetShip.Name = "buttonSetShip";
             this.buttonSetShip.Size = new System.Drawing.Size(115, 47);
             this.buttonSetShip.TabIndex = 1;
@@ -61,7 +63,7 @@
             // 
             // buttonSetLainer
             // 
-            this.buttonSetLainer.Location = new System.Drawing.Point(760, 92);
+            this.buttonSetLainer.Location = new System.Drawing.Point(757, 182);
             this.buttonSetLainer.Name = "buttonSetLainer";
             this.buttonSetLainer.Size = new System.Drawing.Size(115, 47);
             this.buttonSetLainer.TabIndex = 2;
@@ -81,6 +83,16 @@
             this.groupBoxShip.TabIndex = 3;
             this.groupBoxShip.TabStop = false;
             this.groupBoxShip.Text = "Забрать судно";
+            // 
+            // buttonTakeShip
+            // 
+            this.buttonTakeShip.Location = new System.Drawing.Point(26, 52);
+            this.buttonTakeShip.Name = "buttonTakeShip";
+            this.buttonTakeShip.Size = new System.Drawing.Size(75, 23);
+            this.buttonTakeShip.TabIndex = 3;
+            this.buttonTakeShip.Text = "Забрать";
+            this.buttonTakeShip.UseVisualStyleBackColor = true;
+            this.buttonTakeShip.Click += new System.EventHandler(this.buttonTakeShip_Click);
             // 
             // pictureBoxTakeShip
             // 
@@ -106,21 +118,30 @@
             this.label.TabIndex = 0;
             this.label.Text = "место";
             // 
-            // buttonTakeShip
+            // label1
             // 
-            this.buttonTakeShip.Location = new System.Drawing.Point(26, 52);
-            this.buttonTakeShip.Name = "buttonTakeShip";
-            this.buttonTakeShip.Size = new System.Drawing.Size(75, 23);
-            this.buttonTakeShip.TabIndex = 3;
-            this.buttonTakeShip.Text = "Забрать";
-            this.buttonTakeShip.UseVisualStyleBackColor = true;
-            this.buttonTakeShip.Click += new System.EventHandler(this.buttonTakeShip_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(779, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Уровни:";
+            // 
+            // listBoxLevels
+            // 
+            this.listBoxLevels.FormattingEnabled = true;
+            this.listBoxLevels.Location = new System.Drawing.Point(755, 28);
+            this.listBoxLevels.Name = "listBoxLevels";
+            this.listBoxLevels.Size = new System.Drawing.Size(120, 95);
+            this.listBoxLevels.TabIndex = 5;
             // 
             // FormPier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 462);
+            this.Controls.Add(this.listBoxLevels);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxShip);
             this.Controls.Add(this.buttonSetLainer);
             this.Controls.Add(this.buttonSetShip);
@@ -132,6 +153,7 @@
             this.groupBoxShip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -145,5 +167,7 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.PictureBox pictureBoxTakeShip;
         private System.Windows.Forms.Button buttonTakeShip;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxLevels;
     }
 }
