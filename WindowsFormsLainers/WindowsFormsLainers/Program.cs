@@ -16,6 +16,7 @@ namespace WindowsFormsLainers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormPier());        }
+            Application.Run(new FormPier());
+        }
     }
 }
