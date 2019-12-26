@@ -68,7 +68,8 @@ namespace WindowsFormsLainers
             for (int i = 0; i < keys.Count; i++)
             {
                 _places[keys[i]].DrawShip(g);
-            }
+            }
+
         }
 
         private void DrawMarking(Graphics g)

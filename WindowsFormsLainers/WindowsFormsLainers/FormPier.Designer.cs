@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.pictureBoxPier = new System.Windows.Forms.PictureBox();
-            this.buttonSetShip = new System.Windows.Forms.Button();
-            this.buttonSetLainer = new System.Windows.Forms.Button();
             this.groupBoxShip = new System.Windows.Forms.GroupBox();
             this.buttonTakeShip = new System.Windows.Forms.Button();
             this.pictureBoxTakeShip = new System.Windows.Forms.PictureBox();
@@ -38,6 +36,7 @@
             this.label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxLevels = new System.Windows.Forms.ListBox();
+            this.buttonSetShip = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPier)).BeginInit();
             this.groupBoxShip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTakeShip)).BeginInit();
@@ -50,26 +49,6 @@
             this.pictureBoxPier.Size = new System.Drawing.Size(744, 454);
             this.pictureBoxPier.TabIndex = 0;
             this.pictureBoxPier.TabStop = false;
-            // 
-            // buttonSetShip
-            // 
-            this.buttonSetShip.Location = new System.Drawing.Point(757, 129);
-            this.buttonSetShip.Name = "buttonSetShip";
-            this.buttonSetShip.Size = new System.Drawing.Size(115, 47);
-            this.buttonSetShip.TabIndex = 1;
-            this.buttonSetShip.Text = "Поставить корабль";
-            this.buttonSetShip.UseVisualStyleBackColor = true;
-            this.buttonSetShip.Click += new System.EventHandler(this.buttonSetShip_Click);
-            // 
-            // buttonSetLainer
-            // 
-            this.buttonSetLainer.Location = new System.Drawing.Point(757, 182);
-            this.buttonSetLainer.Name = "buttonSetLainer";
-            this.buttonSetLainer.Size = new System.Drawing.Size(115, 47);
-            this.buttonSetLainer.TabIndex = 2;
-            this.buttonSetLainer.Text = "Поставить лайнер";
-            this.buttonSetLainer.UseVisualStyleBackColor = true;
-            this.buttonSetLainer.Click += new System.EventHandler(this.buttonSetLainer_Click);
             // 
             // groupBoxShip
             // 
@@ -135,16 +114,25 @@
             this.listBoxLevels.Size = new System.Drawing.Size(120, 95);
             this.listBoxLevels.TabIndex = 5;
             // 
+            // buttonSetShip
+            // 
+            this.buttonSetShip.Location = new System.Drawing.Point(769, 155);
+            this.buttonSetShip.Name = "buttonSetShip";
+            this.buttonSetShip.Size = new System.Drawing.Size(103, 52);
+            this.buttonSetShip.TabIndex = 6;
+            this.buttonSetShip.Text = "Заказать корабль";
+            this.buttonSetShip.UseVisualStyleBackColor = true;
+            this.buttonSetShip.Click += new System.EventHandler(this.buttonSetShip_Click);
+            // 
             // FormPier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 462);
+            this.Controls.Add(this.buttonSetShip);
             this.Controls.Add(this.listBoxLevels);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxShip);
-            this.Controls.Add(this.buttonSetLainer);
-            this.Controls.Add(this.buttonSetShip);
             this.Controls.Add(this.pictureBoxPier);
             this.Name = "FormPier";
             this.Text = "Пристань";
@@ -160,8 +148,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxPier;
-        private System.Windows.Forms.Button buttonSetShip;
-        private System.Windows.Forms.Button buttonSetLainer;
         private System.Windows.Forms.GroupBox groupBoxShip;
         private System.Windows.Forms.MaskedTextBox maskedTextBox;
         private System.Windows.Forms.Label label;
@@ -169,5 +155,6 @@
         private System.Windows.Forms.Button buttonTakeShip;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxLevels;
+        private System.Windows.Forms.Button buttonSetShip;
     }
 }
