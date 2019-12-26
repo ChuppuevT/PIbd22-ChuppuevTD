@@ -17,6 +17,16 @@ namespace WindowsFormsLainers
             Weight = weight;
             MainColor = mainColor;
         }
+        public Ship(string info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 3)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+            }
+        }
 
         public override void MoveTransport(Direction direction)
         {
@@ -62,6 +72,11 @@ namespace WindowsFormsLainers
             g.FillRectangle(br, _startPosX + 5, _startPosY + 50, 70, 10);
             Brush brGrey = new SolidBrush(Color.Gray);
             g.FillRectangle(brGrey, _startPosX + 5, _startPosY + 20, 65, 10);
+        }
+
+        public override string ToString()
+        {
+            return MaxSpeed + ";" + Weight + ";" + MainColor.Name;
         }
     }
 }

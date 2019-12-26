@@ -23,8 +23,23 @@ namespace WindowsFormsLainers
             Truba = truba;
             Flag = flag;
             Okna = okna;
+            Random rnd = new Random();
         }
+        public Lainer(string info) : base(info)
+        {
+            string[] strs = info.Split(';');
+            if (strs.Length == 6)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                MainColor = Color.FromName(strs[2]);
+                DopColor = Color.FromName(strs[3]);
+                Jakor = Convert.ToBoolean(strs[4]);
+                Truba = Convert.ToBoolean(strs[5]);
+                Flag = Convert.ToBoolean(strs[6]);
 
+            }
+        }
         public override void DrawShip(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -73,12 +88,17 @@ namespace WindowsFormsLainers
 
             }
 
-            
         }
 
         public void SetDopColor(Color color)
         {
             DopColor = color;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ";" + DopColor.Name + ";" + Jakor + ";" +
+           Truba + ";" + Flag;
         }
     }
 }
