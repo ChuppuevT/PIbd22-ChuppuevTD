@@ -25,9 +25,6 @@ namespace WindowsFormsLainers
             Okna = okna;
         }
 
-        
-
-        
         public override void DrawShip(Graphics g)
         {
             Pen pen = new Pen(Color.Black);
@@ -77,6 +74,11 @@ namespace WindowsFormsLainers
             }
 
             
+        }
+
+        public void SetDopColor(Color color)
+        {
+            DopColor = color;
         }
     }
 }

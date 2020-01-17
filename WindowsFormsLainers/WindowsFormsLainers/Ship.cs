@@ -56,17 +56,12 @@ namespace WindowsFormsLainers
 
         public override void DrawShip(Graphics g)
         {
-            
             Brush br = new SolidBrush(MainColor);
             g.FillRectangle(br, _startPosX, _startPosY + 30, 100, 10);
             g.FillRectangle(br, _startPosX, _startPosY + 40, 80, 10);
             g.FillRectangle(br, _startPosX + 5, _startPosY + 50, 70, 10);
-
             Brush brGrey = new SolidBrush(Color.Gray);
             g.FillRectangle(brGrey, _startPosX + 5, _startPosY + 20, 65, 10);
-
-            
-            
         }
     }
 }
