@@ -16,6 +16,8 @@ namespace WindowsFormsLainers
         public MultiLevelPier(int countStages, int pictureWidth, int pictureHeight)
         {
             pierStages = new List<Pier<ITransport>>();
+            this.pictureWidth = pictureWidth;
+            this.pictureHeight = pictureHeight;
             for (int i = 0; i < countStages; ++i)
             {
                 pierStages.Add(new Pier<ITransport>(countPlaces, pictureWidth,
@@ -35,7 +37,7 @@ namespace WindowsFormsLainers
             }
         }
 
-        public bool SaveData(string filename)
+        public void SaveData(string filename)
         {
             if (File.Exists(filename))
             {
@@ -51,11 +53,9 @@ namespace WindowsFormsLainers
                     fs.WriteLine("Level");
                     for (int i = 0; i < countPlaces; i++)
                     {
-                        var ship = level[i];
-                        if (ship != null)
+                        try
                         {
-                            //если место не пустое
-                            //Записываем тип мшаины
+                            var ship = level[i];
                             if (ship.GetType().Name == "Ship")
                             {
                                 fs.Write(i + ":Ship:");
@@ -67,17 +67,17 @@ namespace WindowsFormsLainers
                             //Записываемые параметры
                             fs.WriteLine(ship);
                         }
+                        finally { }
                     }
                 }
             }
-            return true;
         }
 
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException();
             }
 
             using (StreamReader fs = new StreamReader(filename, System.Text.Encoding.Default))
@@ -95,11 +95,10 @@ namespace WindowsFormsLainers
                         pierStages.Clear();
                     }
                     pierStages = new List<Pier<ITransport>>(count);
-
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Неверный формат файла");
                 }
                 while (true)
                 {
@@ -127,7 +126,6 @@ namespace WindowsFormsLainers
                     }
                     pierStages[counter][Convert.ToInt32(line.Split(':')[0])] = ship;
                 }
-                return true;
             }
         }
     }

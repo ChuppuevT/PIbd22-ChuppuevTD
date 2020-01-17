@@ -37,7 +37,6 @@ namespace WindowsFormsLainers
                 Jakor = Convert.ToBoolean(strs[4]);
                 Truba = Convert.ToBoolean(strs[5]);
                 Flag = Convert.ToBoolean(strs[6]);
-
             }
         }
         public override void DrawShip(Graphics g)
@@ -58,7 +57,6 @@ namespace WindowsFormsLainers
                 g.FillRectangle(ar, _startPosX + 90, _startPosY + 15, 10, 10);
                 g.DrawLine(pen, _startPosX + 90, _startPosY + 15, _startPosX + 100, _startPosY + 25);
                 g.DrawLine(pen, _startPosX + 90, _startPosY + 25, _startPosX + 100, _startPosY + 15);
-
             }
             
             Brush brGrey = new SolidBrush(DopColor);
@@ -85,7 +83,6 @@ namespace WindowsFormsLainers
                 g.FillRectangle(truba, _startPosX + 15, _startPosY, 10, 10);
                 g.FillRectangle(truba, _startPosX + 30, _startPosY, 10, 10);
                 g.FillRectangle(truba, _startPosX + 45, _startPosY, 10, 10);
-
             }
 
         }
