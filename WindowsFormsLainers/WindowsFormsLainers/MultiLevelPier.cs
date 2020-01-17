@@ -51,23 +51,18 @@ namespace WindowsFormsLainers
                 {
                     //Начинаем уровень
                     fs.WriteLine("Level");
-                    for (int i = 0; i < countPlaces; i++)
+                    foreach (ITransport ship in level)
                     {
-                        try
+                        if (ship.GetType().Name == "Ship")
                         {
-                            var ship = level[i];
-                            if (ship.GetType().Name == "Ship")
-                            {
-                                fs.Write(i + ":Ship:");
-                            }
-                            if (ship.GetType().Name == "Lainer")
-                            {
-                                fs.Write(i + ":Lainer:");
-                            }
-                            //Записываемые параметры
-                            fs.WriteLine(ship);
+                            fs.WriteLine(level.GetKey + ":Ship:");
                         }
-                        finally { }
+                        if (ship.GetType().Name == "Lainer")
+                        {
+                            fs.WriteLine(level.GetKey + ":Lainer:");
+                        }
+                        //Записываемые параметры
+                        fs.WriteLine(ship);
                     }
                 }
             }
@@ -127,6 +122,10 @@ namespace WindowsFormsLainers
                     pierStages[counter][Convert.ToInt32(line.Split(':')[0])] = ship;
                 }
             }
+        }
+        public void Sort()
+        {
+            pierStages.Sort();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace WindowsFormsLainers
 {
-    class Lainer: Ship
+    class Lainer: Ship, IComparable<Lainer>, IEquatable<Lainer>
     {
         public Color DopColor { private set; get; }
         public bool Jakor { private set; get; }
@@ -97,5 +97,83 @@ namespace WindowsFormsLainers
             return base.ToString() + ";" + DopColor.Name + ";" + Jakor + ";" +
            Truba + ";" + Flag;
         }
+
+        public int CompareTo(Lainer other)
+        {
+            var res = (this is Ship).CompareTo(other is Ship);
+            if (res != 0)
+            {
+                return res;
+            }
+            if (DopColor != other.DopColor)
+            {
+                DopColor.Name.CompareTo(other.DopColor.Name);
+            }
+            if (Jakor != other.Jakor)
+            {
+                return Jakor.CompareTo(other.Jakor);
+            }
+            if (Truba != other.Truba)
+            {
+                return Truba.CompareTo(other.Truba);
+            }
+            if (Flag != other.Flag)
+            {
+                return Flag.CompareTo(other.Flag);
+            }
+            return 0;
+        }
+        
+        public bool Equals(Lainer other)
+        {
+            var res = (this as Ship).Equals(other as Ship);
+            if (!res)
+            {
+                return res;
+            }
+            if (GetType().Name != other.GetType().Name)
+            {
+                return false;
+            }
+            if (DopColor != other.DopColor)
+            {
+                return false;
+            }
+            if (Jakor != other.Jakor)
+            {
+                return false;
+            }
+            if (Truba != other.Truba)
+            {
+                return false;
+            }
+            if (Flag != other.Flag)
+            {
+                return false;
+            }
+            return true;
+        }
+        
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Lainer shipObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(shipObj);
+            }
+        }
+        
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
     }
 }

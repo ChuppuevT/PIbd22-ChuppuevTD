@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-
+using System.Collections;
 
 namespace WindowsFormsLainers
 {
-    class Pier<T> where T : class, ITransport
+    public class Pier<T> : IEnumerator<T>, IEnumerable<T>, IComparable<Pier<T>> where T : class, ITransport
     {
         private Dictionary<int, T> _places;
         private int _maxCount;
@@ -16,7 +16,14 @@ namespace WindowsFormsLainers
         private int PictureHeight { get; set; }
         private const int _placeSizeWidth = 210;
         private const int _placeSizeHeight = 80;
-
+        private int _currentIndex;
+        public int GetKey
+        {
+            get
+            {
+                return _places.Keys.ToList()[_currentIndex];
+            }
+        }
         public Pier(int sizes, int pictureWidth, int pictureHeight)
         {
             _maxCount = sizes;
@@ -29,7 +36,11 @@ namespace WindowsFormsLainers
         {
             if (p._places.Count == p._maxCount)
             {
-                return -1;
+                throw new PierOverflowException();
+            }
+            if (p._places.ContainsValue(ship))
+            {
+                throw new PierAlreadyHaveException();
             }
             for (int i = 0; i < p._maxCount; i++)
             {
@@ -53,7 +64,7 @@ namespace WindowsFormsLainers
                 p._places.Remove(index);
                 return ship;
             }
-            return null;
+            throw new PierNotFoundException(index);
         }
 
         private bool CheckFreePlace(int index)
@@ -64,12 +75,10 @@ namespace WindowsFormsLainers
         public void Draw(Graphics g)
         {
             DrawMarking(g);
-            var keys = _places.Keys.ToList();
-            for (int i = 0; i < keys.Count; i++)
+            foreach (var ship in _places)
             {
-                _places[keys[i]].DrawShip(g);
+                ship.Value.DrawShip(g);
             }
-
         }
 
         private void DrawMarking(Graphics g)
@@ -110,6 +119,89 @@ namespace WindowsFormsLainers
                     throw new PierOccupiedPlaceException(ind);
                 }
             }
+        }
+
+        public T Current
+        {
+            get
+            {
+                return _places[_places.Keys.ToList()[_currentIndex]];
+            }
+        }
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+        public void Dispose()
+        {
+            _places.Clear();
+        }
+        public bool MoveNext()
+        {
+            if (_currentIndex + 1 >= _places.Count)
+            {
+                Reset();
+                return false;
+            }
+            _currentIndex++;
+            return true;
+        }
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        public int CompareTo(Pier<T> other)
+        {
+            if (_places.Count > other._places.Count)
+            {
+                return -1;
+            }
+            else if (_places.Count < other._places.Count)
+            {
+                return 1;
+            }
+            else if (_places.Count > 0)
+            {
+                var thisKeys = _places.Keys.ToList();
+                var otherKeys = other._places.Keys.ToList();
+                for (int i = 0; i < _places.Count; ++i)
+                {
+                    if (_places[thisKeys[i]] is Ship && other._places[thisKeys[i]] is
+                   Lainer)
+                    {
+                        return 1;
+                    }
+                    if (_places[thisKeys[i]] is Lainer && other._places[thisKeys[i]]
+                    is Ship)
+                    {
+                        return -1;
+                    }
+                    if (_places[thisKeys[i]] is Ship && other._places[thisKeys[i]] is
+                    Ship)
+                    {
+                        return (_places[thisKeys[i]] is
+                       Ship).CompareTo(other._places[thisKeys[i]] is Ship);
+                    }
+                    if (_places[thisKeys[i]] is Lainer && other._places[thisKeys[i]]
+                    is Lainer)
+                    {
+                        return (_places[thisKeys[i]] is
+                       Lainer).CompareTo(other._places[thisKeys[i]] is Lainer);
+                    }
+                }
+            }
+            return 0;
         }
     }
 }
