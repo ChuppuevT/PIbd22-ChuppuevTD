@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NLog;
 
 namespace WindowsFormsLainers
 {
@@ -15,10 +16,11 @@ namespace WindowsFormsLainers
         MultiLevelPier pier;
         FormShipConfig form;
         private const int countLevel = 5;
-
+        private Logger logger;
         public FormPier()
         {
             InitializeComponent();
+            logger = LogManager.GetCurrentClassLogger();
             pier = new MultiLevelPier(countLevel, pictureBoxPier.Width,
            pictureBoxPier.Height);
             for (int i = 0; i < countLevel; i++)
@@ -44,10 +46,11 @@ namespace WindowsFormsLainers
             {
                 if (maskedTextBox.Text != "")
                 {
-                    var ship = pier[listBoxLevels.SelectedIndex] -
-                   Convert.ToInt32(maskedTextBox.Text);
-                    if (ship != null)
+                    try
                     {
+                        var ship = pier[listBoxLevels.SelectedIndex] -
+                   Convert.ToInt32(maskedTextBox.Text);
+
                         Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
                        pictureBoxTakeShip.Height);
                         Graphics gr = Graphics.FromImage(bmp);
@@ -55,14 +58,24 @@ namespace WindowsFormsLainers
                        pictureBoxTakeShip.Height);
                         ship.DrawShip(gr);
                         pictureBoxTakeShip.Image = bmp;
+                        logger.Info("Изъято судно " + ship.ToString() + " с места " + maskedTextBox.Text);
+                        Draw();
+
                     }
-                    else
+                    catch (PierNotFoundException ex)
                     {
+                        MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK,
+                       MessageBoxIcon.Error);
                         Bitmap bmp = new Bitmap(pictureBoxTakeShip.Width,
-                       pictureBoxTakeShip.Height);
+                           pictureBoxTakeShip.Height);
                         pictureBoxTakeShip.Image = bmp;
+                        logger.Error("На месте " + maskedTextBox.Text + " нет судна");
                     }
-                    Draw();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -83,14 +96,22 @@ namespace WindowsFormsLainers
         {
             if (ship != null && listBoxLevels.SelectedIndex > -1)
             {
-                int place = pier[listBoxLevels.SelectedIndex] + ship;
-                if (place > -1)
+                try
                 {
+                    int place = pier[listBoxLevels.SelectedIndex] + ship;
+                    logger.Info("Добавлено судно " + ship.ToString() + " на место " + place);
                     Draw();
                 }
-                else
+                catch (PierOverflowException ex)
                 {
-                    MessageBox.Show("Судно не удалось поставить");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                    logger.Error("Переполнение");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -99,14 +120,16 @@ namespace WindowsFormsLainers
         {
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (pier.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    pier.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Не сохранилось", "Результат",
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -116,15 +139,22 @@ namespace WindowsFormsLainers
         {
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (pier.LoadData(openFileDialog.FileName))
+                try
                 {
-                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK,
-     MessageBoxIcon.Information);
+                    pier.LoadData(openFileDialog.FileName);
+                    MessageBox.Show("Загрузили", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                 }
-                else
+                catch (PierOccupiedPlaceException ex)
                 {
-                    MessageBox.Show("Не загрузили", "Результат", MessageBoxButtons.OK,
+                    MessageBox.Show(ex.Message, "Занятое место", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                    logger.Error("Занятое место");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 Draw();
             }

@@ -95,7 +95,7 @@ namespace WindowsFormsLainers
                 {
                     return _places[ind];
                 }
-                return null;
+                throw new PierNotFoundException(ind);
             }
             set
             {
@@ -104,6 +104,10 @@ namespace WindowsFormsLainers
                     _places.Add(ind, value);
                     _places[ind].SetPosition(5 + ind / 5 * _placeSizeWidth + 5, ind % 5
                     * _placeSizeHeight + 15, PictureWidth, PictureHeight);
+                }
+                else
+                {
+                    throw new PierOccupiedPlaceException(ind);
                 }
             }
         }

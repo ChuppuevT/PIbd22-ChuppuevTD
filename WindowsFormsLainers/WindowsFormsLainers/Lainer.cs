@@ -57,7 +57,6 @@ namespace WindowsFormsLainers
                 g.FillRectangle(ar, _startPosX + 90, _startPosY + 15, 10, 10);
                 g.DrawLine(pen, _startPosX + 90, _startPosY + 15, _startPosX + 100, _startPosY + 25);
                 g.DrawLine(pen, _startPosX + 90, _startPosY + 25, _startPosX + 100, _startPosY + 15);
-
             }
             
             Brush brGrey = new SolidBrush(DopColor);
