@@ -37,7 +37,6 @@ namespace WindowsFormsLainers
                 Jakor = Convert.ToBoolean(strs[4]);
                 Truba = Convert.ToBoolean(strs[5]);
                 Flag = Convert.ToBoolean(strs[6]);
-
             }
         }
         public override void DrawShip(Graphics g)
