@@ -84,7 +84,6 @@ namespace WindowsFormsLainers
                 g.FillRectangle(truba, _startPosX + 15, _startPosY, 10, 10);
                 g.FillRectangle(truba, _startPosX + 30, _startPosY, 10, 10);
                 g.FillRectangle(truba, _startPosX + 45, _startPosY, 10, 10);
-
             }
 
         }
