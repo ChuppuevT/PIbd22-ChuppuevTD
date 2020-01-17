@@ -108,6 +108,11 @@ namespace WindowsFormsLainers
                    MessageBoxIcon.Error);
                     logger.Error("Переполнение");
                 }
+                catch (PierAlreadyHaveException ex)
+                {
+                    MessageBox.Show(ex.Message, "Дублирование", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Error("Дублирование");
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Неизвестная ошибка",
@@ -158,6 +163,13 @@ namespace WindowsFormsLainers
                 }
                 Draw();
             }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            pier.Sort();
+            Draw();
+            logger.Info("Сортировка уровней");
         }
     }
 }
