@@ -89,10 +89,7 @@ namespace WindowsFormsLainers
             }
             DrawShip();
         }
-        private void panelColor_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
+        
         private void labelBaseColor_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(Color)))
